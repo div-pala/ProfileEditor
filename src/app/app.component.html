@@ -23,25 +23,41 @@
 </div>
 
 <div *ngIf="(displayEdit)">
-  <form #editForm="ngForm" (ngSubmit)="saveChanges(editForm)"></form>
+  <form #editForm="ngForm" (ngSubmit)="saveChanges(editForm)">
   <table class="tableDisplay">
     <tbody>
       <tr>
-        <td><label>Name:</label></td>
-        <td><input name="name" id="name" [(ngModel)]="user.name"></td>
+        <td><label for="name">Name:</label></td>
+        <td><input #name="ngModel"  type="text"  name="name" id="name" required minlength="2" [(ngModel)]="user.name"></td>
+        <div *ngIf="!name?.valid && (name?.dirty || name?.touched)" class="error">
+        <td><div *ngIf="name.errors?.['required']">
+          Name is required
+        </div></td>
+        <td><div *ngIf="name.errors?.['minlength']">
+          Name Minimum Length is {{name.errors?.['minlength'].requiredLength}}
+        </div>
+        </td>
+      </div>
       </tr>
       <tr>
         <td><label>Age:</label></td>
-        <td><input name="age" id="age" [(ngModel)]="user.age"></td>
+        <td><input #age="ngModel" type = "text" name="age" id="age" required [(ngModel)]="user.age"></td>
+        <div *ngIf="!age?.valid && (age?.dirty || age?.touched)" class="error">
+          <td>
+            <div *ngIf="age.errors?.['required']">
+            Age is required
+            </div>
+          </td>
+        </div>
       </tr>
       <tr>
         <td><label>FavouriteColor:</label></td>
-        <td><input name="favouriteColor" id="favouriteColor" [(ngModel)]="user.favoriteColor"></td>
+        <td><input type="text" name="favouriteColor" id="favouriteColor" [(ngModel)]="user.favoriteColor"></td>
       </tr>
-      <tr><button type="submit" (click)="toggleEdit()"> Save Changes </button></tr>
+      <tr><button type="submit" (click)="toggleEdit()" [disabled]="!editForm.valid"> Save Changes </button></tr>
       <tr>
         <td><button class="toggleEditButton" type="button" (click)="toggleEdit()"> Toggle Edit </button> </td>
       </tr>
-    </tbody>    
-  </table>  
-</div>
+    </tbody>  
+  </table>
+</form>

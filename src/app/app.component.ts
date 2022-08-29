@@ -22,6 +22,7 @@ export class AppComponent {
     age : 0,
     favoriteColor : ''
   }
+  
   displayEdit:boolean = false;
 
   toggleEdit():void {
@@ -31,13 +32,11 @@ export class AppComponent {
       this.pageTitle = "Update User Information";
       this.displayEdit=true;
     }
-    //this.displayEdit == true? this.displayEdit=false : this.displayEdit=true;
   }
 
-  saveChanges(form:NgForm):void {
+  saveChanges(editForm:NgForm):void {
     this.formUser.name = this.user.name;
     this.formUser.age = this.user.age;
     this.formUser.favoriteColor = this.user.favoriteColor;
   }
-
 }

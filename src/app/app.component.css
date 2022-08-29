@@ -30,3 +30,7 @@ button.toggleEditButton{
     color: navy;
     background-color: mistyrose;
 }
+
+error{
+    color:red;
+}
